@@ -1,6 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 
+//Input file has to be created first
 const inputDay1 = fs.readFileSync(path.join(__dirname + '/inputDay1.txt'), 'utf-8')
 
 const spllittedInput = inputDay1.split('\n')
