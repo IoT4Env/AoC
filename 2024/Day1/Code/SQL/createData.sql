@@ -1,0 +1,10 @@
+CREATE TABLE IF NOT EXISTS INPUT_DAY1 (
+    ID INTEGER PRIMARY KEY,
+    Input NVARCHAR NOT NULL
+);
+
+INSERT INTO INPUT_DAY1 (
+    Input
+) VALUES (
+    '<puzzle_input>'
+);
