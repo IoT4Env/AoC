@@ -1,4 +1,4 @@
-// link consegna advent of code : https://adventofcode.com/2024/day/2
+// link consegna advent of code : https://adventofcode.com/2024/day/3
 
 function sumValidMultiplications(input) {
   // Regex per catturare i pattern validi di mul(X,Y)
