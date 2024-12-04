@@ -5,12 +5,13 @@ const path = require('path')
 const inputDay3 = fs.readFileSync(path.join(__dirname, '/inputDay3.txt'), 'utf-8')
 
 
-var mulStart = 'mul('
-var mulSeparator = ','
-var mulEnd = ')'
+let mulStart = 'mul('
+let mulSeparator = ','
+let mulEnd = ')'
 
-var multiplicatedList = []
-var mulIndex = inputDay3.indexOf(mulStart)
+
+let multiplicatedList = []
+let mulIndex = inputDay3.indexOf(mulStart)
 
 while(mulIndex !== -1)
 {
