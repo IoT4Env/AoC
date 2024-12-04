@@ -1,45 +1,43 @@
-const fs = require('fs')
-const path = require('path')
+const fs = require("fs"),
+  path = require("path");
 
 //Input file has to be created first
-const inputDay1 = fs.readFileSync(path.join(__dirname + '/inputDay1.txt'), 'utf-8')
+const inputDay1 = fs.readFileSync(
+    path.join(__dirname + "/inputDay1.txt"),
+    "utf-8"
+  ),
+  spllittedInput = inputDay1.split("\n"),
+  rawRow = spllittedInput[0].split(" ");
 
-const spllittedInput = inputDay1.split('\n')
+let lastElement = rawRow.length - 1,
+  leftList = [],
+  rightList = [];
 
-const rawRow = spllittedInput[0].split(' ')
-let lastElement = rawRow.length - 1
+spllittedInput.forEach((element) => {
+  let rawRow = element.split(" ");
+  leftList.push(parseInt(rawRow[0]));
+  rightList.push(parseInt(rawRow[lastElement]));
+});
 
-let leftList = []
-let rightList = []
+let orderedLeftList = leftList.sort(),
+  orderedRightList = rightList.sort(),
+  occurences = 0,
+  similarityScoreList = [];
 
-spllittedInput.forEach(element => {
-    let rawRow = element.split(' ')
-    leftList.push(parseInt(rawRow[0]))
-    rightList.push(parseInt(rawRow[lastElement]))
-})
+orderedLeftList.forEach((leftElement) => {
+  if (isNaN(leftElement)) return;
+  orderedRightList.some((rightElement) => {
+    if (leftElement === rightElement) occurences++;
 
-let orderedLeftList = leftList.sort()
-let orderedRightList = rightList.sort()
+    if (leftElement > rightElement) return;
+  });
+  similarityScoreList.push(leftElement * occurences);
+  occurences = 0;
+});
 
-let occurences = 0
-let similarityScoreList = []
+let sum = similarityScoreList.reduce(
+  (accumulativeSum, element) => accumulativeSum + element,
+  0
+); //0 is initial value
 
-orderedLeftList.forEach(leftElement => {
-    if(isNaN(leftElement))
-        return
-    orderedRightList.some(rightElement => {
-        if(leftElement === rightElement){
-            occurences++
-        }
-
-        if(leftElement > rightElement)
-            return
-    })
-    similarityScoreList.push(leftElement * occurences)
-    occurences = 0
-})
-
-let sum = similarityScoreList.reduce((accumulativeSum, element) => accumulativeSum + element, 0) //0 is initial value
-
-console.log(sum)
-
+console.log(sum);
