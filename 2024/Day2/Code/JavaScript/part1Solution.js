@@ -12,16 +12,23 @@ let difference = 0
 
 reports.forEach(report => {
     const splittedReport = report.split(' ')
-    difference = splittedReport[0] - splittedReport[1]
-    const isAsc = difference < 0
-    const isDesc = difference > 0
+
+    // difference = splittedReport[0] - splittedReport[1]
+    // let asc = difference < 0
+    // let desc = difference > 0
+    let asc = parseInt(splittedReport[0]) < parseInt(splittedReport[1])
 
     for(let i = 0; i < splittedReport.length - 1; i++){
         difference = splittedReport[i] - splittedReport[i + 1]
-        if(isAsc !== (difference < 0)
-            || isDesc !== (difference > 0)){
+        // if(isAsc !== (difference < 0)
+        //     || isDesc !== (difference > 0)){
+        //     return
+        // }
+
+        if(asc !== (parseInt(splittedReport[i]) < parseInt(splittedReport[i + 1]))){
             return
         }
+
 
         if(splittedReport[i] === splittedReport[i + 1]){
             return
