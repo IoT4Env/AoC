@@ -1,3 +1,5 @@
+// link consegna advent of code : https://adventofcode.com/2024/day/1
+
 // Funzione per calcolare la distanza totale tra due liste
 function calculateTotalDistance(leftList, rightList) {
   // Ordina entrambe le liste in ordine crescente

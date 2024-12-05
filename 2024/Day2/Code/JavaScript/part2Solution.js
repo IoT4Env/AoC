@@ -1,13 +1,9 @@
-const fs = require('fs')
-const path = require('path')
-
-
-const inputDay2 = fs.readFileSync(path.join(__dirname, '/inputDay2.txt'), 'utf-8')
-const reports = inputDay2.split('\n').filter(report => report.length > 0)
-
+const fs = require("fs"),
+  path = require("path"),
+  inputDay2 = fs.readFileSync(path.join(__dirname, "/inputDay2.txt"), "utf-8"),
+  reports = inputDay2.split("\n").filter((report) => report.length > 0);
 
 //console.log(reports[reports.length - 1])
-
 
 // let reports = [
 //     '7 6 4 2 1',
@@ -20,53 +16,41 @@ const reports = inputDay2.split('\n').filter(report => report.length > 0)
 
 //'12 13 18 17 19'
 
-let safeReports = 0
+let safeReports = 0;
 
 //let initialBadReports = []
 
+reports.forEach((report) => {
+  const splittedReport = report.split(" ");
 
-reports.forEach(report => {
-    const splittedReport = report.split(' ')
-
-    if(isSafeReport(splittedReport)){
-        safeReports++
+  if (isSafeReport(splittedReport)) safeReports++;
+  else {
+    for (let i = 0; i < splittedReport.length; i++) {
+      let reportCopy = splittedReport;
+      reportCopy.splice(i, 1);
+      if (isSafeReport(reportCopy)) {
+        safeReports++;
+        break;
+      }
     }
-    else{
-        for(let i = 0; i < splittedReport.length; i++){
-            let reportCopy = splittedReport
-            reportCopy.splice(i, 1)
-            if(isSafeReport(reportCopy)){
-                safeReports++
-                break
-            }
-        }
-    }
-})
+  }
+});
 
-console.log(safeReports)
+console.log(safeReports);
 
-function isSafeReport(report){
-    let asc = parseInt(report[0]) < parseInt(report[1])
-    for(let i = 0; i < report.length - 1; i++){
-        let difference = parseInt(report[i]) - parseInt(report[i + 1])
+function isSafeReport(report) {
+  let asc = parseInt(report[0]) < parseInt(report[1]);
+  for (let i = 0; i < report.length - 1; i++) {
+    let difference = parseInt(report[i]) - parseInt(report[i + 1]);
 
-        if(asc !== (parseInt(report[i]) < parseInt(report[i + 1]))){
-            return false
-        }
+    if (asc !== parseInt(report[i]) < parseInt(report[i + 1])) return false;
 
-        if(parseInt(report[i]) === parseInt(report[i + 1])){
-            return false
-        }
+    if (parseInt(report[i]) === parseInt(report[i + 1])) return false;
 
-        if(Math.abs(difference) > 3){
-            return false
-        }
-    }
-    return true
+    if (Math.abs(difference) > 3) return false;
+  }
+  return true;
 }
-
-
-
 
 // reports.forEach(report => {
 //     // tollerance = 1
@@ -111,7 +95,6 @@ function isSafeReport(report){
 
 //     // for(let i = 0; i < splittedReport.length - 1; i++){
 
-
 //     //     difference = parseInt(splittedReport[i]) - parseInt(splittedReport[i + 1])
 //     //     if(asc !== (parseInt(splittedReport[i]) < parseInt(splittedReport[i + 1]))){
 //     //         splittedReport.splice(i, 1)
@@ -144,10 +127,6 @@ function isSafeReport(report){
 //     //     }
 //     // }
 
-
 // })
 
 // console.log(safeReports);
-
-
-
