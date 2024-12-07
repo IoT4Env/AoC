@@ -58,8 +58,7 @@ BEGIN;
             WHERE Iteration < CAST(_ROW_COUNT.Count AS INT)
         )
         SELECT
-            _LEFT_ASC.Value,
-            _RIGHT_ASC.Value
+            SUM(ABS(_RIGHT_ASC.Value - _LEFT_ASC.Value)) AS TotalDistance
         FROM (
             SELECT
                 ROW_NUMBER() OVER (ORDER BY _DATA_TABLE.LeftCol) AS Row,
@@ -72,8 +71,7 @@ BEGIN;
                 _DATA_TABLE.RightCol AS Value
             FROM _DATA_TABLE
         ) _RIGHT_ASC
-        ON _RIGHT_ASC.Row = _LEFT_ASC.Row
-        LIMIT 10;
+        ON _RIGHT_ASC.Row = _LEFT_ASC.Row;
             
 
     DROP TABLE IF EXISTS _ROW_COUNT;
