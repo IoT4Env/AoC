@@ -3,7 +3,7 @@ BEGIN;
     PRAGMA temp_store = 2;
 
     DROP TABLE IF EXISTS _ROW_COUNT;
-
+    
     --Create table for storing total input rows
     CREATE TABLE IF NOT EXISTS _ROW_COUNT (
         Count VARCHAR(10) NOT NULL
@@ -60,21 +60,19 @@ BEGIN;
             WHERE Iteration < CAST(_ROW_COUNT.Count AS INT)
         )
         SELECT
-            SUM(ABS(_RIGHT_ASC.Value - _LEFT_ASC.Value)) AS TotalDistance
+            SUM(C.mulCt * C.ColValue) AS SimilarityScore
         FROM (
-            SELECT
-                ROW_NUMBER() OVER (ORDER BY _DATA_TABLE.LeftCol) AS Row,
-                _DATA_TABLE.LeftCol AS Value
+            SELECT 
+                CASE
+                    WHEN _DATA_TABLE.RightCol IN (SELECT _DATA_TABLE.LeftCol FROM _DATA_TABLE) THEN
+                        COUNT(_DATA_TABLE.RightCol)
+                    ELSE 0
+                END AS mulCt,
+                _DATA_TABLE.RightCol AS ColValue
             FROM _DATA_TABLE
-        ) _LEFT_ASC
-        INNER JOIN (
-            SELECT
-                ROW_NUMBER() OVER (ORDER BY _DATA_TABLE.RightCol) AS Row,
-                _DATA_TABLE.RightCol AS Value
-            FROM _DATA_TABLE
-        ) _RIGHT_ASC
-        ON _RIGHT_ASC.Row = _LEFT_ASC.Row;
-            
+            GROUP BY _DATA_TABLE.RightCol
+        ) AS C;
+
 
     DROP TABLE IF EXISTS _ROW_COUNT;
 END;
