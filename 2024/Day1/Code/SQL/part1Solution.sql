@@ -57,11 +57,24 @@ BEGIN;
             FROM _DATA_TABLE, INPUT_DAY1, _ROW_COUNT
             WHERE Iteration < CAST(_ROW_COUNT.Count AS INT)
         )
-    SELECT
-        _DATA_TABLE.LeftCol,
-        _DATA_TABLE.RightCol
-    FROM _DATA_TABLE;
-
+        SELECT
+            _LEFT_ASC.Value,
+            _RIGHT_ASC.Value
+        FROM (
+            SELECT
+                ROW_NUMBER() OVER (ORDER BY _DATA_TABLE.LeftCol) AS Row,
+                _DATA_TABLE.LeftCol AS Value
+            FROM _DATA_TABLE
+        ) _LEFT_ASC
+        INNER JOIN (
+            SELECT
+                ROW_NUMBER() OVER (ORDER BY _DATA_TABLE.RightCol) AS Row,
+                _DATA_TABLE.RightCol AS Value
+            FROM _DATA_TABLE
+        ) _RIGHT_ASC
+        ON _RIGHT_ASC.Row = _LEFT_ASC.Row
+        LIMIT 10;
+            
 
     DROP TABLE IF EXISTS _ROW_COUNT;
 END;

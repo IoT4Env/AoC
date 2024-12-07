@@ -3,8 +3,8 @@
 ## Premise
 A fex things before the instructions on how to execute sql solution for AoC day1:
 - Tables with prefix '_' are temporary tables;
-- This solution requires sqlite3 installed.
-    Verify the installation with this [command](#check-version)
+- This solution requires sqlite3 installed.\
+    Verify the installation with this [command](#check-version)\
     sqlite3 version 3.8.3 or higher is required for CTE support.
 
 After checking all the above, you are ready to go:
