@@ -1,4 +1,4 @@
-// link consegna advent of code : https://adventofcode.com/2024/day/7
+// link consegna advent of code : https://adventofcode.com/2024/day/8
 
 // Mappa di esempio fornita nel problema
 const map = [
