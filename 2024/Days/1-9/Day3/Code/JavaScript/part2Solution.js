@@ -20,27 +20,18 @@ let doNotMulIndex = inputDay3.indexOf(doNotMul)
 
 
 let interestedMemoryChunks = []
-interestedMemoryChunks.push(inputDay3.slice(0, doMulIndex))
+interestedMemoryChunks.push(inputDay3.slice(0, doNotMulIndex))
 
 
-
-while (doMulIndex !== -1) {
-    if (doNotMulIndex === -1) {
+while(true){
+    doMulIndex = inputDay3.indexOf(doMul, doNotMulIndex)
+    doNotMulIndex = inputDay3.indexOf(doNotMul, doMulIndex)
+    if(doNotMulIndex === -1 && doMulIndex !== -1){
         interestedMemoryChunks.push(inputDay3.slice(doMulIndex, inputDay3.length))
         break;
     }
-
-    let doMulIndexCopy = doMulIndex
-    doMulIndex = inputDay3.indexOf(doMul, doNotMulIndex)
-
-    doNotMulIndex = inputDay3.indexOf(doNotMul, doMulIndexCopy)
     interestedMemoryChunks.push(inputDay3.slice(doMulIndex, doNotMulIndex))
-
 }
-
-
-console.log(`${interestedMemoryChunks[0]}\n ${interestedMemoryChunks[1]}`);
-
 
 let multiplicatedList = []
 interestedMemoryChunks.forEach(memoryChunk => mul(memoryChunk))
