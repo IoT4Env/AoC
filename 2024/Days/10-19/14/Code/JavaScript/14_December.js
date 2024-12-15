@@ -1,4 +1,4 @@
-// link consegna advent of code : https://adventofcode.com/2024/day/13
+// link consegna advent of code : https://adventofcode.com/2024/day/14
 
 // Importa il modulo fs per leggere il file JSON
 const fs = require("fs");
