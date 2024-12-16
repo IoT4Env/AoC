@@ -1,3 +1,5 @@
+// link consegna advent of code : https://adventofcode.com/2024/day/15
+
 const fs = require("fs");
 
 // Funzione per calcolare il valore GPS di una scatola
