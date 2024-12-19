@@ -1,0 +1,13 @@
+{
+  "patterns": ["r", "wr", "b", "g", "bwu", "rb", "gb", "br"],
+  "designs": [
+    "brwrr",
+    "bggr",
+    "gbbr",
+    "rrbgbr",
+    "ubwu",
+    "bwurrg",
+    "brgr",
+    "bbrgwb"
+  ]
+}
