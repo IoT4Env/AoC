@@ -1,3 +1,5 @@
+// link consegna advent of code : https://adventofcode.com/2024/day/20
+
 const fs = require("fs");
 
 // Legge i dati dal file JSON
