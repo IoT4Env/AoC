@@ -3,7 +3,7 @@
 const fs = require("fs");
 
 // Legge il file JSON localmente
-fs.readFile("./Json/labirinto.json", "utf8", (err, data) => {
+fs.readFile("../Json/labirinto.json", "utf8", (err, data) => {
   if (err) {
     console.error("Errore durante il caricamento del JSON:", err);
     return;
