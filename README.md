@@ -2,7 +2,7 @@
 Advent of Code problems to solve in various languages.
 
 
-## Merry Christmas
+## Merry
 
 ![Christmas](2024/Christmas/Imgs/merryXMAS.png)
 
