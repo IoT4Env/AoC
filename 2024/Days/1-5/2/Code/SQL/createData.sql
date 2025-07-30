@@ -1,5 +1,6 @@
+
 --Create table for storing total input rows
-CREATE TABLE IF NOT EXISTS INPUT_DAY1 (
+CREATE TABLE IF NOT EXISTS INPUT_DAY2 (
     ID INTEGER PRIMARY KEY,
     Input NVARCHAR NOT NULL
 );
@@ -10,7 +11,7 @@ CREATE TABLE IF NOT EXISTS ROW_COUNT (
 );
 
 --Replace <puzzle_input> with your puzzle input
-INSERT INTO INPUT_DAY1 (
+INSERT INTO INPUT_DAY2 (
     Input
 ) VALUES (
     '<puzzle_input>'
@@ -29,12 +30,12 @@ WITH
         SELECT 
             Iteration + 1,
             CASE
-                WHEN SUBSTRING(INPUT_DAY1.Input, Iteration + 1, 1) = CHAR(10) THEN
+                WHEN SUBSTRING(INPUT_DAY2.Input, Iteration + 1, 1) = CHAR(10) THEN
                     RowCount + 1
                 ELSE RowCount
             END 
-        FROM CTE, INPUT_DAY1
-        WHERE Iteration < LENGTH(INPUT_DAY1.Input)
+        FROM CTE, INPUT_DAY2
+        WHERE Iteration < LENGTH(INPUT_DAY2.Input)
     )
 INSERT INTO ROW_COUNT(
     Count
