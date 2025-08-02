@@ -1,96 +1,117 @@
 BEGIN;
     --Declare in-memory tables
     PRAGMA temp_store = 2;
-    
-    --ROWS_INPUT_DAY2
-    --L'idea è di applicare una ricorsion WITH per ogni riga della tabella ROWS_INPUT_DAY2
-    --Vedi se riesci a fare una ricorsione per una riga (stringa) della tabella e se prende le irghe successive per ogni iterazione.
-    
-    --Below query can used as a with ending condition when the end of the string has been reached
-    -- SELECT CAST(SUBSTRING(ROWS_INPUT_DAY2.row_data, 100, INSTR(ROWS_INPUT_DAY2.row_data, ' ')) AS INT) FROM ROWS_INPUT_DAY2 LIMIT 6;
 
+    --Declare tables for storing temporary alues to be used later as if they were variables
+    CREATE TABLE IF NOT EXISTS _ASCENDING(
+        value INT NOT NULL
+    );
 
-    SELECT ROWS_INPUT_DAY2.row_data FROM ROWS_INPUT_DAY2 LIMIT 1;
+    CREATE TABLE IF NOT EXISTS _DESCENDING(
+        value INT NOT NULL
+    );
 
-    WITH SplitSting AS
+    --Iterate data checking for increasing values
+    WITH _SPLIT_STRING AS
     (
         SELECT
-            RowID,
+            RowId,
             SUBSTRING(ROWS_INPUT_DAY2.row_data, 1, INSTR(ROWS_INPUT_DAY2.row_data, ' ') - 1) AS part,
-            SUBSTRING(ROWS_INPUT_DAY2.row_data, INSTR(ROWS_INPUT_DAY2.row_data, ' ')+1) AS remainder
+            SUBSTRING(ROWS_INPUT_DAY2.row_data, INSTR(ROWS_INPUT_DAY2.row_data, ' ') + 1) AS remainder,
+            1 AS is_safe
         FROM ROWS_INPUT_DAY2
         WHERE INSTR(ROWS_INPUT_DAY2.row_data, ' ') > 0
 
         UNION ALL
 
         SELECT
-            RowID,
+            RowId,
             SUBSTRING(remainder, 1, INSTR(remainder, ' ') - 1),
-            SUBSTRING(remainder, INSTR(remainder, ' ') + 1)
-        FROM SplitSting
+            SUBSTRING(remainder, INSTR(remainder, ' ') + 1),
+            CASE
+                WHEN CAST(SUBSTRING(remainder, 1, INSTR(remainder, ' ') - 1) AS INT) > CAST(part AS INT)
+                    AND ABS(CAST(SUBSTRING(remainder, 1, INSTR(remainder, ' ') - 1) AS INT) - CAST(part AS INT)) < 4 THEN 1
+            END
+        FROM _SPLIT_STRING
         WHERE remainder IS NOT NULL AND INSTR(remainder, ' ') > 0
+
+        UNION ALL
+
+        --Select the last element after the separator
+        SELECT
+            RowID,
+            remainder,
+            NULL,
+            CASE
+                WHEN CAST(remainder AS INT) > CAST(part AS INT)
+                    AND ABS(CAST(remainder AS INT) - CAST(part AS INT)) < 4 THEN 1
+            END
+        FROM _SPLIT_STRING
+        WHERE remainder IS NOT NULL AND INSTR(remainder, ' ') = 0
+    
     )
-    SELECT * FROM SplitSting ORDER BY RowID LIMIT 10;
-    -- SELECT * FROM (SELECT ROWS_INPUT_DAY2.row_data FROM ROWS_INPUT_DAY2) RID2 LIMIT 4;
-    -- WITH CTE(iteration, current_row_data, previus_value_length) AS (
-    --     SELECT 
-    --         1,
-    --         -- RID2.row_data,
-    --         SUBSTRING(RID2.row_data, 0, INSTR(RID2.row_data, ' ')),
-    --         0
-    --     FROM (SELECT ROWS_INPUT_DAY2.row_data FROM ROWS_INPUT_DAY2) RID2
+    INSERT INTO _ASCENDING (value)
+    SELECT
+        SUM(COUNT(is_safe) = COUNT(RowID)) OVER ()
+    FROM _SPLIT_STRING 
+    GROUP BY RowId 
+    ORDER BY RowId
+    LIMIT 1;
 
-    --     UNION ALL
+    --Iterate data checking for decreasing values
+    WITH _SPLIT_STRING AS
+    (
+        SELECT
+            RowId,
+            SUBSTRING(ROWS_INPUT_DAY2.row_data, 1, INSTR(ROWS_INPUT_DAY2.row_data, ' ') - 1) AS part,
+            SUBSTRING(ROWS_INPUT_DAY2.row_data, INSTR(ROWS_INPUT_DAY2.row_data, ' ') + 1) AS remainder,
+            1 AS is_safe
+        FROM ROWS_INPUT_DAY2
+        WHERE INSTR(ROWS_INPUT_DAY2.row_data, ' ') > 0
 
-    --     SELECT 
-    --         iteration + 1,
-    --         -- RID2.row_data,
-    --         SUBSTRING(RID2.row_data, previus_value_length + LENGTH(current_row_data), INSTR(RID2.row_data, ' ')),
-    --         previus_value_length + LENGTH(current_row_data)
-    --     FROM CTE, (SELECT ROWS_INPUT_DAY2.row_data FROM ROWS_INPUT_DAY2) RID2
-    --     WHERE iteration < 100 --current_row_data = 0
-    -- )
-    -- SELECT * FROM CTE LIMIT 1;
+        UNION ALL
 
+        SELECT
+            RowId,
+            SUBSTRING(remainder, 1, INSTR(remainder, ' ') - 1),
+            SUBSTRING(remainder, INSTR(remainder, ' ') + 1),
+            CASE
+                WHEN CAST(SUBSTRING(remainder, 1, INSTR(remainder, ' ') - 1) AS INT) < CAST(part AS INT)
+                    AND ABS(CAST(SUBSTRING(remainder, 1, INSTR(remainder, ' ') - 1) AS INT) - CAST(part AS INT)) < 4 THEN 1
+            END
+        FROM _SPLIT_STRING
+        WHERE remainder IS NOT NULL AND INSTR(remainder, ' ') > 0
 
+        UNION ALL
 
+        --Select the last element after the separator
+        SELECT
+            RowID,
+            remainder,
+            NULL,
+            CASE
+                WHEN CAST(remainder AS INT) < CAST(part AS INT)
+                    AND ABS(CAST(remainder AS INT) - CAST(part AS INT)) < 4 THEN 1
+            END
+        FROM _SPLIT_STRING
+        WHERE remainder IS NOT NULL AND INSTR(remainder, ' ') = 0
+    
+    )
+    INSERT INTO _DESCENDING (value)
+    SELECT
+        SUM(COUNT(is_safe) = COUNT(RowID)) OVER ()
+    FROM _SPLIT_STRING 
+    GROUP BY RowId 
+    ORDER BY RowId
+    LIMIT 1;
 
-    -- SELECT(
-    -- WITH CTE(iteration, current_row_data, previus_value_length) AS (
-    --     SELECT 
-    --         1, 
-    --         SUBSTRING(ROWS_INPUT_DAY2.row_data, 0, INSTR(ROWS_INPUT_DAY2.row_data, ' ')),
-    --         0
-    --     FROM ROWS_INPUT_DAY2
+    --And the result is...
+    SELECT 
+        _ASCENDING.Value + _DESCENDING.Value
+    FROM _ASCENDING, _DESCENDING;
 
-    --     UNION ALL
-
-    --     SELECT 
-    --         iteration + 1,
-    --         SUBSTRING(ROWS_INPUT_DAY2.row_data, previus_value_length + LENGTH(current_row_data), INSTR(ROWS_INPUT_DAY2.row_data, ' ')),
-    --         previus_value_length + LENGTH(row_data)
-    --     FROM CTE, ROWS_INPUT_DAY2, ROW_COUNT
-    --     WHERE iteration < ROW_COUNT.Count
-    -- )
-    -- SELECT current_row_data FROM CTE LIMIT 7;
-    -- FROM ROWS_INPUT_DAY2;
-
-    -- SELECT
-    --     COUNT(*)
-    -- FROM
-    --     (WITH CTE(iteration, row_data) AS (
-    --         SELECT 1, ROWS_INPUT_DAY2.row_data
-
-    --         UNION ALL
-
-    --         SELECT 
-    --             iteration + 1,
-    --             ROWS_INPUT_DAY2.row_data
-            
-    --         FROM CTE, ROWS_INPUT_DAY2, ROW_COUNT
-    --         WHERE iteration < ROW_COUNT.Count
-    --     )
-    --     SELECT row_data FROM CTE
-    -- );
-
+    --Drop temporary tables
+    DROP TABLE IF EXISTS _ASCENDING;
+    DROP TABLE IF EXISTS _DESCENDING;
+    
 END;
