@@ -9,6 +9,8 @@ CREATE TABLE IF NOT EXISTS ROW_COUNT (
     Count INT NOT NULL
 );
 
+DELETE FROM INPUT_DAY1;
+
 --Replace <puzzle_input> with your puzzle input
 INSERT INTO INPUT_DAY1 (
     Input

@@ -1,14 +1,25 @@
+--Make sure no previus tables is present
+DROP TABLE IF EXISTS INPUT_DAY2;
+DROP TABLE IF EXISTS ROW_COUNT;
+DROP TABLE IF EXISTS ROWS_INPUT_DAY2;
+
 
 --Create table for storing total input rows
-CREATE TABLE IF NOT EXISTS INPUT_DAY2 (
+CREATE TABLE INPUT_DAY2 (
     ID INTEGER PRIMARY KEY,
     Input NVARCHAR NOT NULL
 );
 
 --Create table for storing input rows count
-CREATE TABLE IF NOT EXISTS ROW_COUNT (
+CREATE TABLE ROW_COUNT (
     Count INT NOT NULL
 );
+
+CREATE TABLE ROWS_INPUT_DAY2 (
+    ID INTEGER PRIMARY KEY,
+    row_data NVARCHAR NOT NULL
+);
+
 
 --Replace <puzzle_input> with your puzzle input
 INSERT INTO INPUT_DAY2 (
@@ -21,9 +32,7 @@ INSERT INTO INPUT_DAY2 (
 --Get puzzle input row count
 WITH
     CTE (Iteration, RowCount) AS (
-        SELECT 
-            1,
-            0
+        SELECT  1, 0
         
         UNION ALL
 
@@ -47,3 +56,29 @@ INSERT INTO ROW_COUNT(
     ORDER BY RowCount DESC
     LIMIT 1)
 );
+
+--Insert each puzzle input row inside a table
+WITH
+    _DATA_TABLE(iteration, previous_data_length, row_data) AS (
+        SELECT 
+            1,
+            0,
+            SUBSTRING(INPUT_DAY2.Input, 1, INSTR(INPUT_DAY2.Input, CHAR(10))-1)
+        
+        FROM INPUT_DAY2
+        
+        UNION ALL
+
+        SELECT
+            iteration + 1,
+            previous_data_length + LENGTH(row_data) + 1,
+            SUBSTRING(INPUT_DAY2.Input, LENGTH(row_data) + previous_data_length + 2, INSTR(SUBSTRING(INPUT_DAY2.Input, LENGTH(row_data) + previous_data_length + 2), CHAR(10))-1)
+        
+        FROM _DATA_TABLE, INPUT_DAY2, ROW_COUNT
+        WHERE iteration < ROW_COUNT.Count
+    )
+    INSERT INTO ROWS_INPUT_DAY2(row_data)
+    SELECT row_data FROM _DATA_TABLE;
+
+--Clear redundant tables
+DROP TABLE INPUT_DAY2;
