@@ -11,7 +11,7 @@ Reference from day 4 puzzle
 ## General instructions
 
 The txt input file must be created inside the folder of the language to solve the puzzle from.
-Except for the SQL case, as stated below.
+Except for the SQL case, as stated in the [SQL section](#sql-solution-requirements).
 
 
 ## C solution
@@ -27,6 +27,40 @@ gcc <solution>.c -o <solution>.o && ./<solution>.o
 
 ```sh
 gcc part2Solution.c -o part2Solution.o && ./part2Solution.o
+```
+
+
+## Godot solution requirements
+
+Below procedures are made in Linux.
+For more informations, check the [Official Godot Documentation](https://docs.godotengine.org/en/stable/tutorials/editor/command_line_tutorial.html)
+The official godot engine executable for Linux is needed for this solution.
+When downloaded, open a terminal in the directory where the executable is located and type the following commands:
+
+```sh
+#Copy the godot executable in the local bin folder where for easy access from anywhere.
+#Replace <Godot_engine_name_and_version> with actual godot executable name.
+sudo cp <Godot_engine_name_and_version> /usr/local/bin
+
+#Navigate to the local bin folder.
+cd /usr/local/bin
+
+#Rename the executable with 'godot' (case-sensitive).
+sudo mv <Godot_engine_name_and_version> godot
+```
+
+### Godot script execution
+
+Navigate to the Godot directory of the desired day and open a terminal, then type the following command:
+
+```sh
+godot -s <file_name>.gd
+```
+
+### Example
+
+```sh
+godot -s part1Solution.gd
 ```
 
 ## SQL solution requirements
