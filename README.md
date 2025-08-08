@@ -8,6 +8,26 @@ Advent of Code problems to solve in various languages.
 
 Reference from day 4 puzzle
 
+## General instructions
+
+The txt input file must be created inside the folder of the language to solve the puzzle from.
+Except for the SQL case, as stated below.
+
+
+## C solution
+
+Compilation and execution of the C solution was made in Linux.
+To compile the C program solutions, navigate to the C directory of the desired day and use the following syntax:
+
+```sh
+gcc <solution>.c -o <solution>.o && ./<solution>.o
+```
+
+### Example
+
+```sh
+gcc part2Solution.c -o part2Solution.o && ./part2Solution.o
+```
 
 ## SQL solution requirements
 
@@ -23,7 +43,7 @@ After checking all the above, you are ready to go:
 
 1. Create a .db file inside the "SQL" folder like ```<db_file_name>.db```
 
-2. Edit the ```createData.sql``` file and paste the puzzle input between the single quotes
+2. Edit the ```createData.sql``` file and replace the ```<puzzle_input>``` string in single quotes.
 
 3. [Execute](#execute-query-inside-the-database) the ```createData.sql``` query.
 
