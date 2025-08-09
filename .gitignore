@@ -1,3 +1,6 @@
 *.db
 
+#Ignore all hidden folders and files
+.*
+
 /2024/**/*.o

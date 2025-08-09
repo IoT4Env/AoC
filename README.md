@@ -29,6 +29,9 @@ gcc <solution>.c -o <solution>.o && ./<solution>.o
 gcc part2Solution.c -o part2Solution.o && ./part2Solution.o
 ```
 
+## C++ Solution
+
+Refer to the [C Solution](#c-solution), but instead of the gcc compiler use the g++ one.
 
 ## Godot solution requirements
 
