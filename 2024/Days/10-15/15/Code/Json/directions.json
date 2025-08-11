@@ -1,0 +1,10 @@
+{
+  "N": { "dRow": -1, "dCol": 0 },
+  "S": { "dRow": 1, "dCol": 0 },
+  "E": { "dRow": 0, "dCol": 1 },
+  "W": { "dRow": 0, "dCol": -1 },
+  "NE": { "dRow": -1, "dCol": 1 },
+  "NW": { "dRow": -1, "dCol": -1 },
+  "SE": { "dRow": 1, "dCol": 1 },
+  "SW": { "dRow": 1, "dCol": -1 }
+}

@@ -1,0 +1,2 @@
+Posizione iniziale robot: {"row":2,"col":2}
+Somma GPS totale delle scatole: 1624
