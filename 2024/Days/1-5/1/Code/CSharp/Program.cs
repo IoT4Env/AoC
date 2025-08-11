@@ -25,11 +25,8 @@ while (line is not null)
 readtext.Close();
 
 
-// var difference = Part1.Solution(column1, column2);
-// Console.WriteLine(difference);
+var difference = Part1.Solution(column1, column2);
+Console.WriteLine(difference);
 
 var similarity = Part2.Solution(column1, column2);
 Console.WriteLine(similarity);
-
-//Call proper methods from other files
-

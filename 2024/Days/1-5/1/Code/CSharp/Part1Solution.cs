@@ -7,10 +7,6 @@ class Part1
         column2.Sort();
 
         //Get total difference
-        var difference = 0;
-        for (int i = 0; i < column1.Count; i++)
-            difference += Math.Abs(column1[i] - column2[i]);
-
-        return difference;
+        return column1.Zip(column2, (value1, value2) => Math.Abs(value1 - value2)).Sum();
     }
 }
