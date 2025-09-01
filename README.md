@@ -22,6 +22,7 @@ Except for the SQL case, as stated in the [SQL section](#sql).
 - [Python (1991)](#python)
 - [JavaScript (1995)](#javascript)
 - [PHP (1995)](#php)
+- [CSS/SASS (1996 / 2006)](#css-sass)
 - [C# (2000)](#c-2)
 - [Godot (January 14 2014)](#godot)
 
@@ -193,6 +194,93 @@ Then type the following command:
 ```sh
 php -f <file_name>.php
 ```
+
+## CSS (SASS)
+
+### Pre-requisits
+
+To compile SASS into CSS i found two ways:
+
+1. Command line **(recomended)**:
+
+    If you want to PERMANENTLY install this package, follow  the [Official SASS Installation guide](https://sass-lang.com/install/) to download the latest version of SASS for your operating system.
+    At this point in time, its 1.91.0.
+
+    How i did it was to TEMPORARLY install it by:
+    - Downloading and extracting the zip package for my OS
+    - Navigating to the desired day folder
+    - Opening a terminal and typing the following command
+
+    __Linux__
+
+    ```sh
+    export PATH=$PATH:{your_sass_package_location}
+    ```
+
+    __Windows__
+
+    Save the executable file location in your environment variable.
+
+    To verify if it works, open a terminal and type:
+
+    ```sh
+    sass --version
+    ```
+
+    The SASS version number should appear in the terminal.
+
+    _**WARNING**_\
+    _**For Linux users, If you decide to install temporarly this package, you need to re-execute the export command every time a new terminal shell is opened**_
+
+1. Live Sass Compiler:
+    Install ```Live Sass Compiler``` on Visual Studio Code and press the ```Watch Sass``` button when inside a sass file.
+
+    **WARNING:**_\
+    **This approch may take a significal amount of time before finishing**_
+
+
+The next step is to format the input text in such a way that it stays in a single line.
+
+To solve this, save your puzzle input text in a txt file and open a terminal in the same folder as the file resides.
+If in Linux, type the following command:
+
+```sh
+tr '\n' '|' < {your_input_file}.txt > {output_file}.txt
+```
+
+It will take ```{your_input_file}.txt``` as a standard input data and apply the left-hand side operation, wich is replacing all newline characters with the pipe (|) one.
+
+Finally it stores the output in ```{output_file}.txt``` file.
+
+When the command finishes, open your ```{output_file}.txt``` and copy all its content.
+
+Then, open the SASS file for the wanted day and replace ```<your_input>``` placeholder string with the copied one.
+
+This operation is required since SASS does not support multi-line strings unless an escape ('\\') character is used at the end of each line.
+
+Since that same character is removed in the generated CSS, it makes impossible to know where a new line starts and finishes.
+
+### Solution
+
+1. From command line **(recomended)**:
+
+    Open a terminal in the wanted day and type the following command:
+
+    ```sh
+    sass {solution_file_name}.scss {solution_file_name}.css
+    ```
+
+    Replace {solution_file_name} with part1Solution or part2Solution based on which part you want to solve.
+
+1. From Visual Studio Code:
+
+    Open the SASS file for the wanted day and press the ```Watch Sass``` button.
+
+Then open the ```results.html``` file and copy the result... wait its a colored box!!!.
+
+To spice things up _**(and since this is a styling solution)**_ the returned color is the hexadecimal version of your solution.
+
+Inspect the page and copy the color hexadecimal value, then convert it into decimal and voilà.
 
 ## C#
 

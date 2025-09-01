@@ -1,0 +1,127 @@
+@use "sass:string";
+@use "sass:map";
+@use 'sass:list';
+@use 'sass:math';
+
+//One-liner input text
+$input1: "<your_input>";
+
+//Global means that they are not immutable and content might change during code execution
+$column1-global: ();
+$column2-global: ();
+$map_occurences-global: ();
+
+@function extract_columns($rows){
+    $column1: ();
+    $column2: ();
+    @each $row in $rows{
+        $values: string.split($row, " ");
+        $first-value-found: 0;
+        @each $value in $values{
+            @if $value != "" and $first-value-found == 0 {
+                $first-value-found: 1;
+                $number: str-to-int($value);
+                $column1: list.append($column1, $number);
+            }@else if $value != ""{//Second column value
+                $number: str-to-int($value);
+                $column2: list.append($column2, $number);
+            }
+        }
+    }
+    @return ("column1": $column1, "column2": $column2);
+}
+
+@function str-to-int($str){
+    // Matrices
+    // Used to convert string to numbers
+    $strings: '0' '1' '2' '3' '4' '5' '6' '7' '8' '9';
+    $numbers: 0 1 2 3 4 5 6 7 8 9;
+    $result: 0;
+
+    // Looping through all characters
+    @for $i from 1 through string.length($str) {
+        $character: string.slice($str, $i, $i);
+        $index: list.index($strings, $character);
+
+        $number: list.nth($numbers, $index);
+        $result: $result * 10 + $number;
+    }
+
+    @return $result;
+}
+
+
+@function map-count($list1, $list2){
+    @for $i from 1 through list.length($list1){
+        $occurence: 0;
+        @for $j from 1 through list.length($list2){
+            @if list.nth($list1, $i) == list.nth($list2, $j){
+                $occurence: $occurence + 1;
+            }
+        }
+        $map_occurences-global: map.merge($map_occurences-global, ("" + list.nth($list1, $i) + "": $occurence)) !global;
+    }
+
+    @return 1;
+}
+
+
+@function get-similarity($list){
+    $similarity: 0;
+
+    @for $i from 1 through list.length($list){
+        $similarity: $similarity + list.nth($list, $i) * map.get($map_occurences-global, "" + list.nth($list, $i) + "");
+    }
+
+    @return $similarity;
+}
+
+@function number-to-hex($number){
+    $hex-mapping: 'A' 'B' 'C' 'D' 'E' 'F';
+
+    $hex: "";
+
+    @while $number != 0{
+        $remainder: $number % 16;
+        $number: math.floor(math.div($number, 16));
+
+        @if $remainder > 9{
+            $remainder: list.nth($hex-mapping, $remainder - 9);
+        }
+
+        $hex: $remainder + $hex;
+    }
+
+    //Adjust hex value to fit color hex
+    $len: string.length($hex);
+
+    //Add zeros at thge begininng until 6 digits in length
+    @while $len < 6{
+        $hex: '0' + $hex;
+        $len: string.length($hex);
+    }
+
+    //Requires alpha, thus creating a 8 digit hex value
+    @if $len == 7{
+        $hex: $hex + '0';
+    }
+    
+    @return $hex;
+}
+
+
+.part-two .solution{
+    $rows: string.split($input1, "|");
+    
+    $matrix: extract_columns($rows);
+    $column1-global: map.get($matrix, "column1");
+    $column2-global: map.get($matrix, "column2");
+    
+    $_null: map-count($column1-global, $column2-global);
+    $similarity: get-similarity($column1-global);
+
+    $hex-similarity: number-to-hex($similarity);
+    background-color: string.unquote('#' + $hex-similarity);
+    width: 50px;
+    height: 50px;
+}
