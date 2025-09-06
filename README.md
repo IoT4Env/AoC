@@ -20,6 +20,7 @@ Except for the SQL case, as stated in the [SQL section](#sql).
 - [C (1970)](#c)
 - [C++ (1979)](#c-1)
 - [Python (1991)](#python)
+- [Java (1991)](#java)
 - [JavaScript (1995)](#javascript)
 - [PHP (1995)](#php)
 - [CSS/SASS (1996 / 2006)](#css-sass)
@@ -170,12 +171,42 @@ Refer to the [C Solution](#c-solution), but instead of the gcc compiler use the 
 
 ## Python
 
+### Installation
+
+Make sure the Python interpeted is installed in your system.
+In most Ubuntu based OS it is pre-installed by default, but on Windows it has to be installed manually.
+
+### Solution
+
 Navigate to the ```Python``` directory of the desired day and open a terminal.
 Then type the following command:
 
 ```sh
 python3 <file_name>.py
 ```
+
+where the ```<file_name>``` is the wanted solution part.
+
+## Java
+
+### Installation
+
+Make sure the Java interpeted is installed in your system.
+In most Ubuntu based OS it is pre-installed by default, but on Windows it has to be installed manually.
+
+Note:
+There is no need to install the javac utility since just the java command is sufficient to execute these java scripts.
+
+### Solution
+
+Navigate to the ```Java``` directory of the desired day and open a terminal.
+Then type the following command:
+
+```sh
+java <file_name>.java
+```
+
+where the ```<file_name>``` is the wanted solution part.
 
 ## JavaScript
 
