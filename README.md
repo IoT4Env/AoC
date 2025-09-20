@@ -17,6 +17,7 @@ Except for the SQL case, as stated in the [SQL section](#sql).
 ## Legend (by date invented)
 
 - [SQL (1970)](#sql)
+- [Shell (1989)](#shell)
 - [C (1970)](#c)
 - [C++ (1979)](#c-1)
 - [Python (1991)](#python)
@@ -148,6 +149,26 @@ sqlite> .quit
 $ 
 ```
 
+
+## Shell
+
+Shell scripts solutions do not come ready to be executed;
+They have to be manually set as executables.
+
+To do so, navigate to the "Shell" folder of the desired day.
+Open a terminal and type the following command:
+
+```sh
+chmod +x <solution>.sh
+```
+
+Finally, execute the script by typing the following command:
+
+```sh
+./<solution>.sh
+```
+
+Make sure to replace ```<solution>``` with the desired solution part file of the day.
 
 ## C
 
