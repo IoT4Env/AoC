@@ -16,6 +16,7 @@ Except for the SQL case, as stated in the [SQL section](#sql).
 
 ## Legend (by date invented)
 
+- [Batch (1950)/Wine (1993)](#batch)
 - [SQL (1970)](#sql)
 - [Shell (1989)](#shell)
 - [C (1970)](#c)
@@ -27,6 +28,32 @@ Except for the SQL case, as stated in the [SQL section](#sql).
 - [CSS/SASS (1996 / 2006)](#css-sass)
 - [C# (2000)](#c-2)
 - [Godot (January 14 2014)](#godot)
+
+
+## Batch
+
+To execute the batch solution, navigate to the "Batch" folder of the desired day and open a terminal.
+Then type the following command:
+
+```batch
+<solution>.bat
+```
+
+Replace ```<solution>``` with the solution file you want to execute and the result will be printed on screen.
+
+All nice and easy, exept it requires a Windows OS which might be an issue for most people after October 14 2025...
+Alternativly, you can use a Linux OS and install [wine](https://github.com/wine-mirror/wine) on it to enumate a Windows DOS environment.
+For reference, I followed this [YouTube tutorial](https://www.youtube.com/watch?v=UCuD5myL6Fc) to install wine, but feel free to chose the installation process you are most confortable with.
+
+Once wine is installed, navigate to the "Batch" folder of the desired day and open a terminal.
+Then type ```wine cmd```
+After some time, the terminal will be ready to accept commands.
+
+Finally, follow the istructions given at the beginning and the script will execute.
+
+**WARNING:**
+Some solutions are extremly INefficient...
+If you are doing this on a raspberry pi3, bring yourself some entertainment since it will take MINUTES to complete.
 
 
 ## SQL
