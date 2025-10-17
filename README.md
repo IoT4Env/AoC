@@ -27,6 +27,7 @@ Except for the SQL case, as stated in the [SQL section](#sql).
 - [PHP (1995)](#php)
 - [CSS/SASS (1996 / 2006)](#css-sass)
 - [C# (2000)](#c-2)
+- [Powershell (2006)](#powershell)
 - [Godot (January 14 2014)](#godot)
 
 
@@ -369,6 +370,32 @@ Then type the following command:
 ```sh
 dotnet run
 ```
+
+## Powershell
+
+### Windows
+
+Navigate to the desired day and open the "Powershell" folder inside it.
+Then open a powershell terminal and type:
+
+```powershell
+.\{solutionScript}.ps1
+```
+
+Make sure to replcae ```{solutionScript}``` with the solution part file name you want.
+
+### Linux
+
+Linux needs pwsh to execute powershell scripts.
+
+To achieve this, I followed this guide about [installing pwsh on a raspberry pi](https://pimylifeup.com/raspberry-pi-powershell/).
+
+After the installation, everything described for Windows is the same.
+
+**TIP**
+
+If pwsh throws an error like ```No such file or directory```, try navigating to the folder where pwsh is installed and run .```/pwsh```
+
 
 ## Godot
 
