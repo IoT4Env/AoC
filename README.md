@@ -26,6 +26,7 @@ Except for the SQL case, as stated in the [SQL section](#sql).
 - [JavaScript (1995)](#javascript)
 - [PHP (1995)](#php)
 - [CSS/SASS (1996 / 2006)](#css-sass)
+- [VBScript (1996)](#vbscript)
 - [C# (2000)](#c-2)
 - [Powershell (2006)](#powershell)
 - [Godot (January 14 2014)](#godot)
@@ -361,6 +362,33 @@ Then open the ```results.html``` file and copy the result... wait its a colored 
 To spice things up _**(and since this is a styling solution)**_ the returned color is the hexadecimal version of your solution.
 
 Inspect the page and copy the color hexadecimal value, then convert it into decimal and voilà.
+
+
+## VBScript
+
+### Windows
+
+Navigate to the "VBScript" folder of the wanted day and double click the problem part you want.
+
+The final result will be stored in a .tmp file inside the current working directory.
+
+### Linux
+
+Wine is required for this solution to work.
+
+Refer to the [Batch solution](#batch) for informations about how to install wine on Linux.
+
+Once installed, navigate to the "VBScript" folder of the desired day and open a terminal.
+
+Then type the following command:
+
+```sh
+wine wscript {solution_file}.vbs
+```
+
+Make sure to replace ```{solution_file}``` with the solution part you want to execute.
+
+The final result will be stored in a .tmp file inside the current working directory.
 
 ## C#
 
