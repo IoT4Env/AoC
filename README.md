@@ -10,17 +10,26 @@ Reference from day 4 puzzle
 
 ## General instructions
 
+### Input file
+
 The txt input file must be created inside the folder of the language to solve the puzzle from.
+
 Except for the SQL case, as stated in the [SQL section](#sql).
+
+### Docker execution
+
+Some solutions may have the possibility to be run using Docker.
+
+In such cases, follow the official [Docker guide](https://docs.docker.com/engine/install/ubuntu/#installation-methods) to install Docker on your system.
 
 
 ## Legend (by date invented)
 
 - [Batch (1950)/Wine (1993)](#batch)
 - [SQL (1970)](#sql)
-- [Shell (1989)](#shell)
 - [C (1970)](#c)
 - [C++ (1979)](#c-1)
+- [Shell (1989)](#shell)
 - [Python (1991)](#python)
 - [Java (1991)](#java)
 - [JavaScript (1995)](#javascript)
@@ -28,6 +37,7 @@ Except for the SQL case, as stated in the [SQL section](#sql).
 - [CSS/SASS (1996 / 2006)](#css-sass)
 - [VBScript (1996)](#vbscript)
 - [C# (2000)](#c-2)
+- [Clojure (2005)](#clojure)
 - [Powershell (2006)](#powershell)
 - [Godot (January 14 2014)](#godot)
 
@@ -179,25 +189,6 @@ $
 ```
 
 
-## Shell
-
-Shell scripts solutions do not come ready to be executed;
-They have to be manually set as executables.
-
-To do so, navigate to the "Shell" folder of the desired day.
-Open a terminal and type the following command:
-
-```sh
-chmod +x <solution>.sh
-```
-
-Finally, execute the script by typing the following command:
-
-```sh
-./<solution>.sh
-```
-
-Make sure to replace ```<solution>``` with the desired solution part file of the day.
 
 ## C
 
@@ -217,6 +208,27 @@ gcc part2Solution.c -o part2Solution.o && ./part2Solution.o
 ## C++
 
 Refer to the [C Solution](#c-solution), but instead of the gcc compiler use the g++ one.
+
+
+## Shell
+
+Shell scripts solutions do not come ready to be executed;
+They have to be manually set as executables.
+
+To do so, navigate to the "Shell" folder of the desired day.
+Open a terminal and type the following command:
+
+```sh
+chmod +x <solution>.sh
+```
+
+Finally, execute the script by typing the following command:
+
+```sh
+./<solution>.sh
+```
+
+Make sure to replace ```<solution>``` with the desired solution part file of the day.
 
 
 ## Python
@@ -398,6 +410,47 @@ Then type the following command:
 ```sh
 dotnet run
 ```
+
+## Clojure
+
+### Installation
+
+You can install Clojure by following one of the following guidelines:
+
+1. Direct installation
+
+    Follow the official [Clojure guide](https://clojure.org/guides/install_clojure).
+
+1. Docker installation
+
+    See [Docker installation guide](#docker-execution) on this page.
+    
+**IMPORTANT**
+
+**If you plan to not using Clojure any time soon after this, i would recommend using the docker installation method.**
+
+**This way, your system will be unaffected and you can remove the Clojure image whenever you want.**
+
+### Execution
+
+Navigate to the desired day and open the "Clojure" folder inside it.
+
+Then open a terminal and type the following commands (based on the chosen installation method):
+
+1. **For direct installation**
+
+    ```sh
+    clojure -M solver.clj
+    ```
+
+1. **For docker installation**
+
+    ```sh
+    docker build -t clojure-app .
+    docker run -it --rm --name running-app clojure-app
+    ```
+
+    Names given to the -t and --name flags are an example, so feel free to change them to suite your needs.
 
 ## Powershell
 
