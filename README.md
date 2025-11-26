@@ -39,6 +39,7 @@ In such cases, follow the official [Docker guide](https://docs.docker.com/engine
 - [C# (2000)](#c-2)
 - [Clojure (2005)](#clojure)
 - [Powershell (2006)](#powershell)
+- [Typescript (2012)](#typescript)
 - [Godot (January 14 2014)](#godot)
 
 
@@ -467,16 +468,35 @@ Make sure to replcae ```{solutionScript}``` with the solution part file name you
 
 ### Linux
 
-Linux needs pwsh to execute powershell scripts.
+Linux needs a little "pwsh" to execute powershell scripts.
 
 To achieve this, I followed this guide about [installing pwsh on a raspberry pi](https://pimylifeup.com/raspberry-pi-powershell/).
 
-After the installation, everything described for Windows is the same.
+After the installation, follow the same instructions described for Windows.
 
 **TIP**
 
-If pwsh throws an error like ```No such file or directory```, try navigating to the folder where pwsh is installed and run .```/pwsh```
+If pwsh throws an error like ```No such file or directory```, try navigating to the folder where pwsh is installed and run ```./pwsh```
 
+
+## Typescript
+
+Before proceding, make sure that Node.js is installed on your system.
+
+The same procedure can be applyed in both Windows and Linux Operating Systems.
+
+Navigate to the ```Typescript``` folder of the desired day and open a terminal.
+Then type the following commands (one by one).
+
+```sh
+npm i
+
+npx ts-node <solution>.ts
+```
+
+Replace the ```<solution>``` placeholder with the solution part you want to execute.
+
+The result will be printed on screen.
 
 ## Godot
 
