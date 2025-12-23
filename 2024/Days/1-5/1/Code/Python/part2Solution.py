@@ -1,10 +1,10 @@
-import os, re
+import sys, re
 
 
 def main():
     try:
-        current_dir = os.getcwd()
-        with open(f"{current_dir}/input1.txt", 'r') as input1_file:
+        input_file = str(sys.argv[1])
+        with open(input_file, 'r') as input1_file:
             input1 = input1_file.read()
             lines = input1.split('\n')
             lines.remove('')
@@ -13,7 +13,7 @@ def main():
                 splitted_line = re.sub(' +', ' ', line).split(' ')
                 return int(splitted_line[0]), int(splitted_line[1])
 
-            table: list[tuple[int, int]] = [to_tuple(line) for line in lines]
+            table: list[tuple[int, int]] = [to_tuple(line) for line in lines if line != '']
 
             column1 = [column1 for column1, _ in table]
             column2 = [column2 for _, column2 in table]
