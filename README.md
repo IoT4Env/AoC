@@ -8,6 +8,32 @@ Advent of Code problems to solve in various languages.
 
 Reference from day 4 puzzle
 
+## IN DEVELOPMENT
+
+There is a work in progress that aims to better structure the way each programming language interacts with each day since it is rather boring to copy the input file in the specific day for the wanted programmng language and executing by hand the script...
+
+The new structure would have a layout as follows:
+
+- A folder named "Languages" can be found in the root of this project.
+- Inside it there are all programming languages that was used to solve at least one day part.
+- A script called "solver" is responsible for guiding the user to chose what part to solve in the desired language.
+
+The whole navigate-in-specific-folder procedure is automated by this one script.
+
+Moreover, a folder named "InputFiles" can be found in each year.
+
+The only thing needed is to create a file called ```input{day}.txt``` with the input file for the day.
+
+Remember to replace {day} with the day number.
+
+Example:\
+input7.txt\
+input18.txt\
+...
+
+**IMPORTANT**
+**This new structure may not be applicable on some languages.**
+
 ## General instructions
 
 ### Input file
