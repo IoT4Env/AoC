@@ -35,6 +35,11 @@ def main() -> None:
 			if year is None:
 				continue
 			
+			# Create InputFiles folder if it does not exist
+			input_files_folder = Path.joinpath(aoc_folder, f"{year}/InputFiles")
+			if not Path.exists(input_files_folder):
+				Path.mkdir(input_files_folder)
+
 			
 			# Print menu to welcome the user (again).
 			print_menu()
@@ -110,6 +115,8 @@ def print_menu() -> None:
 	print('**********************************************')
 	print('********* !WELCOME-TO-AOC-IN-PYTHON! *********')
 	print('**********************************************')
+	print()
+	print("Press Ctrl + C to exit")
 
 def ask_year() -> int | None:
 	# Get list of years from the very AoC beginning
