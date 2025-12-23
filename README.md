@@ -39,6 +39,7 @@ In such cases, follow the official [Docker guide](https://docs.docker.com/engine
 - [C# (2000)](#c-2)
 - [Clojure (2005)](#clojure)
 - [Powershell (2006)](#powershell)
+- [Dart (October 10, 2011)](#dart)
 - [Typescript (2012)](#typescript)
 - [Godot (January 14 2014)](#godot)
 
@@ -478,6 +479,47 @@ After the installation, follow the same instructions described for Windows.
 
 If pwsh throws an error like ```No such file or directory```, try navigating to the folder where pwsh is installed and run ```./pwsh```
 
+## Dart
+
+### Installation
+
+You can install the dart SDK by following one of the following guidelines:
+
+1. Direct installation
+
+    Follow the official [Dart SDK installation guide](https://dart.dev/get-dart) for your Operatng System.
+
+1. Docker installation
+
+    See [Docker installation guide](#docker-execution) on this page.
+    
+**IMPORTANT**
+
+**If you plan to not using Dart any time soon after this, i would recommend using the docker installation method.**
+
+**This way, your system will be unaffected and you can remove the Dart image whenever you want.**
+
+
+### Execution
+
+Navigate to the desired day and open the "Dart" folder inside it.
+
+Then open a terminal and type the following commands (based on the chosen installation method):
+
+1. **For direct installation**
+
+    ```sh
+    dart run solver.dart
+    ```
+
+1. **For docker installation**
+
+    ```sh
+    docker build -t dart-app .
+    docker run -it --rm --name running-app dart-app
+    ```
+
+    Names given to the -t and --name flags are an example, so feel free to change them to suite your needs.
 
 ## Typescript
 
