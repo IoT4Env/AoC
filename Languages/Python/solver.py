@@ -25,87 +25,119 @@ DAYS_CHUNKS = [
 def main() -> None:
 	cwd = Path.cwd()
 	aoc_folder = cwd.parent.absolute().parent.absolute()
+
+	# Prepare variables
+	year: int = None
+	day: int = None
+	part: int = None
+
+	# Starts from printing the year
+	menu_pointer = 1
 	while True:
 		try:
-			# Print menu to welcome the user.
-			print_menu()
-
-			# Ask what year the user wants to solve days from
-			year = ask_year()
-			if year is None:
-				continue
+			if menu_pointer <= 0:
+				print("\nBye and happy holidays!!!")
+				return
 			
-			# Create InputFiles folder if it does not exist
-			input_files_folder = Path.joinpath(aoc_folder, f"{year}/InputFiles")
-			if not Path.exists(input_files_folder):
-				Path.mkdir(input_files_folder)
+			if menu_pointer == 1:
+				# Print menu to welcome the user.
+				print_menu()
 
-			
-			# Print menu to welcome the user (again).
-			print_menu()
-
-			# Ask what day the user wants to get solution from
-			day = ask_day()
-			if day is None:
-				continue
-			
-			# Get input file path for this day
-			input_file_path = Path.joinpath(aoc_folder, f"{year}/InputFiles/input{day}.txt")
-			if not Path.exists(input_file_path):
-				print(f"The input file for day {day} is missing!")
-				print(f"Create it in the \"InputFiles\" directory inside the year {year}")
-				input("Press ENTER to continue...")
-				continue
-				
-			# Navigate to the correct Python folder.
-			current_chunk = None
-			for chunk_key, days in DAYS_CHUNKS:
-				if day in days:
-					current_chunk = chunk_key
-					break
-
-			relative_python_path = f"{year}/Days/{current_chunk}/{day}/Code/Python"
-			absolute_python_path = Path.joinpath(aoc_folder, relative_python_path)
-
-			if not Path.exists(absolute_python_path):
-				print("This day does not have a solution yet :(")
-				input("Press ENTER to continue...")
-				continue
-
-			# Print menu to welcome the user (this is getting old...).
-			print_menu()
-
-			# Ask what part to execute
-			part = ask_part()
-			if part is None:
-				continue
-				
-			if part == 1 or part == 2:
-				python_solution_script = Path.joinpath(absolute_python_path, f"part{part}Solution.py")
-				if not Path.exists(absolute_python_path):
-					print("This part does not have a solution yet :(")
+				# Ask what year the user wants to solve days from
+				year = ask_year()
+				if year is None:
 					continue
 
-				# Execute selected part
-				result = subprocess.run(
-					["python3", python_solution_script, input_file_path],
-						capture_output=True,
-						text=True,
-						check=False,
-				)
-				print(f"The solution for part {part} is: {result.stdout}")
-			else:
-				print("Invalid input!")
-				print("Year should be a number")
+				if year == -1:
+					menu_pointer -= 1
+					continue
+				
+				# Create InputFiles folder if it does not exist
+				input_files_folder = Path.joinpath(aoc_folder, f"{year}/InputFiles")
+				if not Path.exists(input_files_folder):
+					# Create the InputFiles folder and missing parent folders if they do not exist
+					# Since they are empty directoryes, they are not pushed to the remote by default.
+					Path.mkdir(input_files_folder, parents=True, exist_ok=True)
+				
+				menu_pointer += 1
+
+			if menu_pointer == 2:
+				# Print menu to welcome the user (again).
+				print_menu(year)
+
+				# Ask what day the user wants to get solution from
+				day = ask_day()
+				if day is None:
+					continue
+
+				if day == -1:
+					menu_pointer -= 1
+					continue
+				
+				# Get input file path for this day
+				input_file_path = Path.joinpath(aoc_folder, f"{year}/InputFiles/input{day}.txt")
+				if not Path.exists(input_file_path):
+					print(f"The input file for day {day} is missing!")
+					print(f"Create it in the \"InputFiles\" directory inside the year {year}")
+					input("Press ENTER to continue...")
+					continue
+					
+				# Navigate to the correct Python folder.
+				current_chunk = None
+				for chunk_key, days in DAYS_CHUNKS:
+					if day in days:
+						current_chunk = chunk_key
+						break
+
+				relative_python_path = f"{year}/Days/{current_chunk}/{day}/Code/Python"
+				absolute_python_path = Path.joinpath(aoc_folder, relative_python_path)
+
+				if not Path.exists(absolute_python_path):
+					print("This day does not have a solution yet :(")
+					input("Press ENTER to continue...")
+					continue
 			
-			input("Press ENTER to continue...")
+				menu_pointer += 1
+
+			if menu_pointer == 3:
+				# Print menu to welcome the user (this is getting old...).
+				print_menu(year, day)
+
+				# Ask what part to execute
+				part = ask_part()
+				if part is None:
+					continue
+
+				if part == -1:
+					menu_pointer -= 1
+					continue
+					
+				if part in list(range(1, PARTS_PER_DAY + 1)):
+					python_solution_script = Path.joinpath(absolute_python_path, f"part{part}Solution.py")
+					if not Path.exists(absolute_python_path):
+						print("This part does not have a solution yet :(")
+						continue
+
+					# Execute selected part
+					result = subprocess.run(
+						["python3", python_solution_script, input_file_path],
+							capture_output=True,
+							text=True,
+							check=False,
+					)
+					print(f"The solution for part {part} is: {result.stdout}")
+				else:
+					print("Invalid input!")
+					print("Year should be a number")
+				
+				input("Press ENTER to continue...")
 
 		except KeyboardInterrupt:
 			print("\nBye and happy holidays!!!")
 			return
 
 
-def print_menu() -> None:
+def print_menu(year: int=None, day: int=None) -> None:
 	# This function should print the menu for the year, day and part
 	# The menu should always stay.
 
@@ -115,7 +147,14 @@ def print_menu() -> None:
 	print('**********************************************')
 	print('********* !WELCOME-TO-AOC-IN-PYTHON! *********')
 	print('**********************************************')
-	print()
+
+	if year is not None and day is not None:
+		print(f"**** YEAR={year} ******************** DAY={day} ****")
+	elif year is not None:
+		print(f"**** YEAR={year} *******************************")
+	else:
+		print()
+	print("Type 0 to go up by one in the menu")
 	print("Press Ctrl + C to exit")
 
 def ask_year() -> int | None:
@@ -141,6 +180,10 @@ def ask_year() -> int | None:
 	year_input: str = input()
 	try:
 		year = int(year_input)
+		if year < 0:
+			raise IndexError
+		elif year == 0:
+			return -1
 
 		# Not used. Just for testing the correct user input.
 		_test_year = aoc_years[year - AOC_START_YEAR]
@@ -175,8 +218,10 @@ def ask_day() -> int:
 	day_input: str = input()
 	try:
 		day = int(day_input)
-		if day <= 0:
+		if day < 0:
 			raise IndexError
+		elif day == 0:
+			return -1
 
 		# Not used. Just for testing the correct user input.
 		_test_day = december_days[day - 1]
@@ -211,8 +256,10 @@ def ask_part() -> int:
 	part_input: str = input()
 	try:
 		part = int(part_input)
-		if part <= 0:
+		if part < 0:
 			raise IndexError
+		elif part == 0:
+			return -1
 
 		# Not used. Just for testing the correct user input.
 		_test_part = problem_parts[part - 1]

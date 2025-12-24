@@ -16,7 +16,8 @@ The new structure would have a layout as follows:
 
 - A folder named "Languages" can be found in the root of this project.
 - Inside it there are all programming languages that was used to solve at least one day part.
-- A script called "solver" is responsible for guiding the user to chose what part to solve in the desired language.
+- Esch language folder contains a script called solver.{extension} that will open a TUI (Text User Interface) to guide you through the desired day and execute solutions in the chosen language.
+- Enjoy!
 
 The whole navigate-in-specific-folder procedure is automated by this one script.
 
@@ -268,14 +269,16 @@ In most Ubuntu based OS it is pre-installed by default, but on Windows it has to
 
 ### Solution
 
-Navigate to the ```Python``` directory of the desired day and open a terminal.
-Then type the following command:
+Open the "Language" folder at the root of this project and chose the "Python" folder.
+
+Once inside, open a terminal and type the following command:
 
 ```sh
-python3 <file_name>.py
+python3 solver.py
 ```
 
-where the ```<file_name>``` is the wanted solution part.
+Follow the instructions to find the day you want to execute the Python solution from.
+
 
 ## Java
 
