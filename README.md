@@ -8,6 +8,29 @@ Advent of Code problems to solve in various languages.
 
 Reference from day 4 puzzle
 
+
+## Legend (by date invented)
+
+- [Batch (1950)/Wine (1993)](#batch)
+- [LISP (1958)](#lisp)
+- [SQL (1970)](#sql)
+- [C (1970)](#c)
+- [C++ (1979)](#c-1)
+- [Shell (1989)](#shell)
+- [Python (1991)](#python)
+- [Java (1991)](#java)
+- [JavaScript (1995)](#javascript)
+- [PHP (1995)](#php)
+- [CSS/SASS (1996 / 2006)](#css-sass)
+- [VBScript (1996)](#vbscript)
+- [C# (2000)](#c-2)
+- [Clojure (2005)](#clojure)
+- [Powershell (2006)](#powershell)
+- [Dart (October 10, 2011)](#dart)
+- [Typescript (2012)](#typescript)
+- [Godot (January 14 2014)](#godot)
+
+
 ## IN DEVELOPMENT
 
 There is a work in progress that aims to better structure the way each programming language interacts with each day since it is rather boring to copy the input file in the specific day for the wanted programmng language and executing by hand the script...
@@ -50,27 +73,6 @@ Some solutions may have the possibility to be run using Docker.
 In such cases, follow the official [Docker guide](https://docs.docker.com/engine/install/ubuntu/#installation-methods) to install Docker on your system.
 
 
-## Legend (by date invented)
-
-- [Batch (1950)/Wine (1993)](#batch)
-- [SQL (1970)](#sql)
-- [C (1970)](#c)
-- [C++ (1979)](#c-1)
-- [Shell (1989)](#shell)
-- [Python (1991)](#python)
-- [Java (1991)](#java)
-- [JavaScript (1995)](#javascript)
-- [PHP (1995)](#php)
-- [CSS/SASS (1996 / 2006)](#css-sass)
-- [VBScript (1996)](#vbscript)
-- [C# (2000)](#c-2)
-- [Clojure (2005)](#clojure)
-- [Powershell (2006)](#powershell)
-- [Dart (October 10, 2011)](#dart)
-- [Typescript (2012)](#typescript)
-- [Godot (January 14 2014)](#godot)
-
-
 ## Batch
 
 To execute the batch solution, navigate to the "Batch" folder of the desired day and open a terminal.
@@ -95,6 +97,45 @@ Finally, follow the istructions given at the beginning and the script will execu
 **WARNING:**
 Some solutions are extremly INefficient...
 If you are doing this on a raspberry pi3, bring yourself some entertainment since it will take MINUTES to complete.
+
+## LISP
+
+You can install lisp by following of the following guidelines
+
+- Direct Installation
+
+    Follow the [SBCL installation guide](https://lisp-lang.org/learn/getting-started/)
+
+- Docker installation
+
+    See [Docker installation guide](#docker-execution) on this page.
+    
+**IMPORTANT**
+
+**If you plan to NOT using Lisp any time soon after this, i would recommend using the docker installation method.**
+
+**This way, your system will be unaffected and you can remove the Lisp image whenever you want.**
+
+### Execution
+
+Navigate to the desired day and open the "Lisp" folder inside it.
+
+Then open a terminal and type the following commands (based on the chosen installation method):
+
+1. **For direct installation**
+
+    ```sh
+    clisp ./solver.lisp
+    ```
+
+1. **For docker installation**
+
+    ```sh
+    docker buildx build -t clisp-app .
+    docker run -it --rm --name running-app clisp-app
+    ```
+
+    Names given to the -t and --name flags are an example, so feel free to change them to suite your needs.
 
 
 ## SQL
@@ -448,17 +489,17 @@ dotnet run
 
 You can install Clojure by following one of the following guidelines:
 
-1. Direct installation
+- Direct installation
 
     Follow the official [Clojure guide](https://clojure.org/guides/install_clojure).
 
-1. Docker installation
+- Docker installation
 
     See [Docker installation guide](#docker-execution) on this page.
     
 **IMPORTANT**
 
-**If you plan to not using Clojure any time soon after this, i would recommend using the docker installation method.**
+**If you plan to NOT using Clojure any time soon after this, i would recommend using the docker installation method.**
 
 **This way, your system will be unaffected and you can remove the Clojure image whenever you want.**
 
