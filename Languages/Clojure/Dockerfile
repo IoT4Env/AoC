@@ -1,0 +1,19 @@
+# WARNING
+# DOCKERFILE CONTEXT IS 2 DIRECTORYES ABOVE THIS FOLDER
+# Downloads official clojure image (CLI support)
+FROM clojure:tools-deps
+
+# Copy input files for each year
+COPY ./Years/**/InputFiles/ /usr/aoc/Years/
+
+# Copies clojure source code of every day inside Docker
+COPY ./Years/**/Clojure/ /usr/aoc/Years/
+
+# COPY the solver.clj (where the Dockerfile resides)
+COPY ./Languages/Clojure/ /usr/aoc/Languages/Clojure/
+
+# Sets current working directory inside docker
+WORKDIR /usr/aoc/Languages/Clojure/
+
+# Execute the clojure solution
+CMD ["clojure", "-M", "solver.clj"]

@@ -131,7 +131,7 @@ Then open a terminal and type the following commands (based on the chosen instal
 1. **For docker installation**
 
     ```sh
-    docker buildx build -t clisp-app .
+    docker build -t clisp-app .
     docker run -it --rm --name running-app clisp-app
     ```
 
