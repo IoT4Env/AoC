@@ -23,8 +23,9 @@ DAYS_CHUNKS = [
 ]
 
 def main() -> None:
-	cwd = Path.cwd()
-	aoc_folder = cwd.parent.absolute().parent.absolute()
+	# SCRIPT CALLED BY OTHER SCRIPT LOCATED AT .AoC, SO NO NEED TO NAVIGATE TO PARENT FOLDERS.
+	aoc_folder = Path.cwd()
+	# aoc_folder = cwd.parent.absolute().parent.absolute()
 
 	# Prepare variables
 	year: int = None
@@ -36,7 +37,6 @@ def main() -> None:
 	while True:
 		try:
 			if menu_pointer <= 0:
-				print("\nBye and happy holidays!!!")
 				return
 			
 			if menu_pointer == 1:
@@ -53,7 +53,7 @@ def main() -> None:
 					continue
 				
 				# Create InputFiles folder if it does not exist
-				input_files_folder = Path.joinpath(aoc_folder, f"{year}/InputFiles")
+				input_files_folder = Path.joinpath(aoc_folder, f"Years/{year}/InputFiles")
 				if not Path.exists(input_files_folder):
 					# Create the InputFiles folder and missing parent folders if they do not exist
 					# Since they are empty directoryes, they are not pushed to the remote by default.
@@ -75,7 +75,7 @@ def main() -> None:
 					continue
 				
 				# Get input file path for this day
-				input_file_path = Path.joinpath(aoc_folder, f"{year}/InputFiles/input{day}.txt")
+				input_file_path = Path.joinpath(aoc_folder, f"Years/{year}/InputFiles/input{day}.txt")
 				if not Path.exists(input_file_path):
 					print(f"The input file for day {day} is missing!")
 					print(f"Create it in the \"InputFiles\" directory inside the year {year}")
@@ -89,7 +89,7 @@ def main() -> None:
 						current_chunk = chunk_key
 						break
 
-				relative_python_path = f"{year}/Days/{current_chunk}/{day}/Code/Python"
+				relative_python_path = f"Years/{year}/Days/{current_chunk}/{day}/Code/Python"
 				absolute_python_path = Path.joinpath(aoc_folder, relative_python_path)
 
 				if not Path.exists(absolute_python_path):
@@ -129,11 +129,10 @@ def main() -> None:
 				else:
 					print("Invalid input!")
 					print("Year should be a number")
+			
+			input("Press ENTER to continue...")
 				
-				input("Press ENTER to continue...")
-
 		except KeyboardInterrupt:
-			print("\nBye and happy holidays!!!")
 			return
 
 
@@ -173,7 +172,7 @@ def ask_year() -> int | None:
 
 	# Pretty way to ask for year input to the user.
 	print("What year would you like to solve days from? [       ]",
-		end='\r"What year would you like to solve days from? [ ',
+		end='\rWhat year would you like to solve days from? [ ',
 		flush=True)
 	
 	# Get and return year user input.
