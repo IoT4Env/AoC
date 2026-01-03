@@ -4,7 +4,7 @@ Advent of Code problems to solve in various languages.
 
 ## Merry
 
-![Christmas](2024/Christmas/Imgs/merryXMAS.png)
+![Christmas](Imgs/merryXMAS.png)
 
 Reference from day 4 puzzle
 
@@ -46,7 +46,9 @@ The whole navigate-in-specific-folder procedure is automated by this one script.
 
 Moreover, a folder named "InputFiles" can be found in each year.
 
-The only thing needed is to create a file called ```input{day}.txt``` with the input file for the day.
+The only things needed are:
+
+1. Creating a file called ```input{day}.txt``` with the input file for the day.
 
 Remember to replace {day} with the day number.
 
@@ -55,8 +57,31 @@ input7.txt\
 input18.txt\
 ...
 
+2. Having Python3 installed on your system.
+
+Most languages will use docker to be executed to avoid harming the physical PC.
+
+The buildx BuildKit is required for this to work.
+
+
 **IMPORTANT**
 **This new structure may not be applicable on some languages.**
+**Until this sctructure is applied to a language or if it is not applicable, the defalt procedure applyes**
+
+### General execution
+
+Navigate to the root of the project and open a terminal.
+
+Then type the following command:
+
+```sh
+python3 languaageSelection.py
+```
+
+This script will open a menu with the possibility to execute AoC solutions in the displayed languages.
+
+For Docker-required languages, the correct docker command is automatically executed when selecting the language number form the menu.
+
 
 ## General instructions
 
