@@ -4,7 +4,8 @@
 ;; Extract columns from input file
 (def column1 [])
 (def column2 [])
-(with-open [input-file (reader "input1.txt")]
+;; Static path until a way to pass arguments to a script from different locations is found...
+(with-open [input-file (reader "/usr/aoc/Years/2024/InputFiles/input1.txt")]
 	;; Iterate through each non-empty line in the file
 	(doseq [line (filter #(not (empty? %)) (line-seq input-file))]
 	(when (not (empty? line)))

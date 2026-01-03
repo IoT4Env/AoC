@@ -1,0 +1,7 @@
+;; See Clojure.Java-Time documentation
+;; https://github.com/dm3/clojure.java-time
+;; ||
+;; https://clojure-doc.org/articles/cookbooks/date_and_time/
+{:paths ["src"]
+ :deps { clojure.java-time/clojure.java-time {:mvn/version "1.4.3"}
+        }}

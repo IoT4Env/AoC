@@ -19,7 +19,7 @@ LANGUAGES_FOLDER = 'Languages'
 # Dictionary with required command to execute each language
 language_commands = {
 	"Python": "python3 ./Languages/Python/solver.py",
-	"Clojure": "docker buildx build -t clojure-app -f ./Languages/Clojure/Dockerfile . && docker run -it --rm --name running-app clojure-app"
+	"Clojure": "docker buildx build -t clojure-app -f ./Languages/Clojure/clojure.Dockerfile . && docker run -it --rm --name running-app clojure-app"
 }
 
 

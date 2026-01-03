@@ -1,0 +1,13 @@
+# Ignore everything (best security practice)
+*
+
+
+# Include only folders needed
+!/Languages/Clojure/
+!/Years/*/Days/**/Clojure/
+# If the year has no InputFiles folder inside it, the year folder is NOT copied eover!
+!/Years/*/InputFiles/
+
+
+# Ignore unnecessary files / folders inside allowed directories
+**/Christmas
