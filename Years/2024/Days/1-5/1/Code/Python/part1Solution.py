@@ -1,34 +1,43 @@
 import sys, re
 
 
-def main():
+depth = int(sys.argv[2])
+
+# Dynamically find the folder where common Python scripts resides.
+# This avoids re-writing them for each solution!
+sys.path.append('../' * depth)
+from Languages.Python import read_file, FileExtensions, get_logger
+
+
+input1_logger = get_logger(__name__)
+
+def to_tuple(line) -> tuple[int, int]:
+    splitted_line = re.sub(' +', ' ', line).split(' ')
+    return int(splitted_line[0]), int(splitted_line[1])
+
+def solve_part1(input1: str) -> int:
     try:
-        input_file = str(sys.argv[1])
-        with open(input_file, 'r') as input1_file:
-            input1 = input1_file.read()
-            lines = input1.split('\n')
-            lines.remove('')
+        input1_lines: list[str] = read_file(input1, FileExtensions.TXT)
 
-            def to_tuple(line) -> tuple[int, int]:
-                splitted_line = re.sub(' +', ' ', line).split(' ')
-                return int(splitted_line[0]), int(splitted_line[1])
+        table = [to_tuple(line) for line in input1_lines if line != '\n']
 
-            table = [to_tuple(line) for line in lines if line != '']
+        column1 = [column1 for column1, _ in table]
+        column2 = [column2 for _, column2 in table]
 
-            column1 = [column1 for column1, _ in table]
-            column1.sort()
+        column1.sort()
+        column2.sort()
 
-            column2 = [column2 for _, column2 in table]
-            column2.sort()
+        table = list(zip(column1, column2))
 
-            table = list(zip(column1, column2))
-
-            total_sum = sum([abs(column1 - column2) for column1, column2 in table])
-            print(total_sum)
-        
+        total_sum = sum([abs(column1 - column2) for column1, column2 in table])
+        return total_sum
     except Exception as error:
-        raise error
-        print(error)
+        input1_logger.error(error)
+        return 0
+    
+def main():
+    solution = solve_part1(str(sys.argv[1]))
+    print(solution)
 
 if __name__ == "__main__":
     main()

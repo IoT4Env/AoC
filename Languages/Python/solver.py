@@ -129,6 +129,10 @@ def main() -> None:
 							check=False,
 							cwd=absolute_python_path
 					)
+
+					if result.stderr:
+						print(result.stderr)
+					
 					print(f"The solution for part {part} is: {result.stdout}")
 				else:
 					print("Invalid input!")
