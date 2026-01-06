@@ -118,12 +118,16 @@ def main() -> None:
 						print("This part does not have a solution yet :(")
 						continue
 
+					# Used to evaluate how many directory there are between the project root and the Python solutions for the given day
+					depth = abs(len(absolute_python_path.parents) - len(aoc_folder.parents))
+
 					# Execute selected part
 					result = subprocess.run(
-						["python3", python_solution_script, input_file_path],
+						["python3", python_solution_script, input_file_path, str(depth)],
 							capture_output=True,
 							text=True,
 							check=False,
+							cwd=absolute_python_path
 					)
 					print(f"The solution for part {part} is: {result.stdout}")
 				else:
