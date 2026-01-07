@@ -132,8 +132,8 @@ def main() -> None:
 
 					if result.stderr:
 						print(result.stderr)
-					
-					print(f"The solution for part {part} is: {result.stdout}")
+					else:
+						print(f"The solution for part {part} is: {result.stdout}")
 				else:
 					print("Invalid input!")
 					print("Year should be a number")
