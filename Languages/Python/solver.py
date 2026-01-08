@@ -4,6 +4,12 @@ import subprocess
 from pathlib import Path
 
 
+from app.fshandler import get_logger
+
+
+# Logger
+solver_logger = get_logger(__name__)
+
 # The year AoC was created
 AOC_START_YEAR = 2015
 
@@ -77,8 +83,11 @@ def main() -> None:
 				# Get input file path for this day
 				input_file_path = Path.joinpath(aoc_folder, f"Years/{year}/InputFiles/input{day}.txt")
 				if not Path.exists(input_file_path):
-					print(f"The input file for day {day} is missing!")
-					print(f"Create it in the \"InputFiles\" directory inside the year {year}")
+					solver_logger.error(
+f"""
+The input file for day {day} is missing!
+Create it in the \"InputFiles\" directory inside the year {year}
+""")
 					input("Press ENTER to continue...")
 					continue
 					
@@ -93,7 +102,7 @@ def main() -> None:
 				absolute_python_path = Path.joinpath(aoc_folder, relative_python_path)
 
 				if not Path.exists(absolute_python_path):
-					print("This day does not have a solution yet :(")
+					solver_logger.error("This day does not have a solution yet :(")
 					input("Press ENTER to continue...")
 					continue
 			
@@ -115,7 +124,7 @@ def main() -> None:
 				if part in list(range(1, PARTS_PER_DAY + 1)):
 					python_solution_script = Path.joinpath(absolute_python_path, f"part{part}Solution.py")
 					if not Path.exists(absolute_python_path):
-						print("This part does not have a solution yet :(")
+						solver_logger.error("This part does not have a solution yet :(")
 						continue
 
 					# Execute selected part
@@ -132,9 +141,11 @@ def main() -> None:
 					else:
 						print(f"The solution for part {part} is: {result.stdout}")
 				else:
-					print("Invalid input!")
-					print("Year should be a number")
-			
+					solver_logger.error(
+"""
+Invalid input!
+Year should be a number
+""")
 			input("Press ENTER to continue...")
 				
 		except KeyboardInterrupt:
@@ -194,13 +205,19 @@ def ask_year() -> int | None:
 		
 		return year
 	except ValueError:
-		print("Invalid input!")
-		print("Year should be a number")
+		solver_logger.error(
+"""
+Invalid input!
+Year should be a number
+""")
 		input("Press ENTER to continue...")
 		return None
 	except IndexError:
-		print("Invalid input!")
-		print("Year should be one of the AoC years")
+		solver_logger.error(
+"""
+Invalid input!
+Year should be one of the AoC years
+""")
 		input("Press ENTER to continue...")
 		return None
 
@@ -232,13 +249,19 @@ def ask_day() -> int:
 		
 		return day
 	except ValueError:
-		print("Invalid input!")
-		print("Day should be a number")
+		solver_logger.error(
+"""
+Invalid input!
+Day should be a number
+""")
 		input("Press ENTER to continue...")
 		return None
 	except IndexError:
-		print("Invalid input!")
-		print("Day should be one of the AoC days")
+		solver_logger.error(
+"""
+Invalid input!
+Day should be one of the AoC days
+""")
 		input("Press ENTER to continue...")
 		return None
 
@@ -270,13 +293,19 @@ def ask_part() -> int:
 		
 		return part
 	except ValueError:
-		print("Invalid input!")
-		print("Part should be a number.")
+		solver_logger.error(
+"""
+Invalid input!
+Part should be a number.
+""")
 		input("Press ENTER to continue...")
 		return None
 	except IndexError:
-		print("Invalid input!")
-		print("Part should be one of the AoC day parts.")
+		solver_logger.error(
+"""
+Invalid input!
+Part should be one of the AoC day parts.
+""")
 		input("Press ENTER to continue...")
 		return None
 

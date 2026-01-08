@@ -11,6 +11,12 @@ import subprocess
 from pathlib import Path
 
 
+from Languages.Python.app.fshandler import get_logger
+
+# Logger
+language_selection_logger = get_logger(__name__)
+
+
 # Constants
 AOC_FOLDER = Path.cwd()
 LANGUAGES_FOLDER = 'Languages'
@@ -18,8 +24,8 @@ LANGUAGES_FOLDER = 'Languages'
 
 # Dictionary with required command to execute each language
 language_commands = {
-	"Python": "python3 ./Languages/Python/solver.py",
-	"Clojure": "docker buildx build -t clojure-app -f ./Languages/Clojure/clojure.Dockerfile . && docker run -it --rm --name running-app clojure-app"
+	"Python": f"python3 ./{LANGUAGES_FOLDER}/Python/solver.py",
+	"Clojure": f"docker buildx build -t clojure-app -f ./{LANGUAGES_FOLDER}/Clojure/clojure.Dockerfile . && docker run -it --rm --name running-app clojure-app"
 }
 
 
@@ -31,24 +37,32 @@ class Language(list):
 
 
 def main() -> None:
+	menu_pointer = 1
 	while True:
 		try:
-			# Show menu for all languages used so far
-			language = language_menu_interaction()
-			if language is None:
-				prompt_continue()
-				continue
+			match menu_pointer:
+				case 0:
+					break
+				case 1:
+					# Show menu for all languages used so far
+					language = language_menu_interaction()
+					if language == "":# No language was chosen; Terminate the program
+						menu_pointer = 0
+						continue
 
-			return_code = execute_language(language)
-			if return_code < 0:
-				prompt_continue()
-				continue
+					if language is None:
+						prompt_continue()
+						continue
 
-
-
+					return_code = execute_language(language)
+					if return_code < 0:
+						prompt_continue()
+						continue
+			
 		except KeyboardInterrupt:
-			print("\nBye and happy holidays / new year!")
-			return
+			break
+	
+	print("Bye and happy holidays / new year!")
 
 def prompt_continue() -> None:
 	input("Press ENTER to continue...")
@@ -62,7 +76,6 @@ def get_available_languages() -> Language:
 	"""
 	languages_path = AOC_FOLDER.glob(f'./{LANGUAGES_FOLDER}/*')
 	return Language(file.name for file in languages_path if not file.is_file())
-	# return [file.name for file in languages_path if not file.is_file()]
 
 def language_menu_interaction() -> str | None:
 	"""
@@ -80,7 +93,7 @@ def language_menu_interaction() -> str | None:
 	print("**************************************************************")
 	print("**** Advent of Code problems to solve in varius languages ****")
 	print("**************************************************************")
-	print("Press Ctrl + C to exit")
+	print("Press Ctrl + C or type 0 to exit")
 
 	# Loops on each language and prints it on screen.
 	[print(f"{i} => {language}") for i, language in enumerate(languages, 1)]
@@ -93,14 +106,21 @@ def language_menu_interaction() -> str | None:
 
 	try:
 		possible_valid_choise = int(language_choise)
+		if possible_valid_choise == 0:
+			return ""
+		
 		return languages[possible_valid_choise - 1]
 	except IndexError:
-		print("Invalid input.")
-		print(f"Must select a number between 1 and {len(languages)}.")
+		language_selection_logger.error(
+f"""Invalid input.
+Must select a number between 1 and {len(languages)}.
+""")
 		return None
 	except ValueError:
-		print("Invalid input.")
-		print("Must provide a number.")
+		language_selection_logger.error(
+"""Invalid input.
+Must provide a number.
+""")
 		return None
 
 
@@ -119,9 +139,6 @@ def execute_language(language: str) -> int:
 				stdout=None,
 				stderr=None,
 				check=True,
-				# capture_output=True,
-				# text=True,
-				# shell=False
 			)
 
 			if result.returncode != 0:
@@ -129,10 +146,8 @@ def execute_language(language: str) -> int:
 
 		return 0
 	except Exception as error:
-		print(error)
+		language_selection_logger.error(error)
 		return -1
-
-	# If it goes right, returns 0, else -1 (thus the int return type).
 	
 
 if __name__ == "__main__":
