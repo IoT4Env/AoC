@@ -1,12 +1,7 @@
 import sys
 
 
-depth = int(sys.argv[2])
-
-# Dynamically find the folder where common Python scripts resides.
-# This avoids re-writing them for each solution!
-sys.path.append('../' * depth)
-from Languages.Python import read_file, FileExtensions
+from fshandler import read_file, FileExtensions
 
 def solve_part1(input1: str) -> int:
 	input1_lines: list[str] = read_file(input1, FileExtensions.TXT)
