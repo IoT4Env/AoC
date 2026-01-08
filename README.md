@@ -39,16 +39,16 @@ The new structure would have a layout as follows:
 
 - A folder named "Languages" can be found in the root of this project.
 - Inside it there are all programming languages that was used to solve at least one day part.
-- Esch language folder contains a script called solver.{extension} that will open a TUI (Text User Interface) to guide you through the desired day and execute solutions in the chosen language.
+- Esch language folder contains a script called `solver.{extension}` that will open a TUI (Text User Interface) to guide you through the desired day and execute solutions in the chosen language.
 - Enjoy!
 
 The whole navigate-in-specific-folder procedure is automated by this one script.
 
 Moreover, a folder named "InputFiles" can be found in each year.
 
-The only things needed are:
+### Prerequisites
 
-1. Creating a file called ```input{day}.txt``` with the input file for the day.
+1. A file called ```input{day}.txt``` with the input file for the day must be created manually.
 
 Remember to replace {day} with the day number.
 
@@ -57,18 +57,22 @@ input7.txt\
 input18.txt\
 ...
 
-2. Having Python3 installed on your system.
+Then paste your AoC input inside it.
+
+2. Having Docker installed on your system (along side with buildx).
 
 Most languages will use docker to be executed to avoid harming the physical PC.
 
 The buildx BuildKit is required for this to work.
 
+3. Having Python >= 3.10.12 installed.
+
 
 **IMPORTANT**
-**This new structure may not be applicable on some languages.**
+**This new structure may not be applicable on some languages.**\
 **Until this sctructure is applied to a language or if it is not applicable, the defalt procedure applyes**
 
-### General execution
+### Execution
 
 Navigate to the root of the project and open a terminal.
 
@@ -82,8 +86,62 @@ This script will open a menu with the possibility to execute AoC solutions in th
 
 For Docker-required languages, the correct docker command is automatically executed when selecting the language number form the menu.
 
+### PYTHON SOLUTION EXECUTION
 
-## General instructions
+Since Python is the language i use the most at work, i made its solution as if it was a real application that has to be deployed in production, adopting best practises and using what i know about this language at best as possible.
+
+A custom python package called ```fshandler``` contains boilerplate code to handle file system operations.
+
+This way there is no need to write the same code in each solution.
+
+A sinple install of the package will bring the functionality for every solution to use.
+
+To achive this, a few confgiurations must be set up manually before proceding:
+
+1. Navigate to the root folder of this project (```./AoC```) and open a terminal.
+
+2. Type the following command:
+
+```sh
+python3 -m venv venv
+```
+
+__A venv folder should be created__
+
+3. In the same directory, type the following command:
+
+- Linux
+
+```sh
+source ./venv/bin/activate
+```
+
+- Windows
+
+```sh
+.\venv\Scripts\activate
+```
+
+__(venv) should appear in the prompt's start__
+
+4. Navigate to the ```AoC/Languages/Python``` folder and type the following command:
+
+```sh
+python3 setup.py bdist_wheel sdist
+```
+
+__This will create the wheel and distribution binaries for the fshandler package (locally)__
+
+5. Navigate to the root folder of this project (```./AoC```) and type the following command:
+
+**MAKE SURE THE (venv) APPEAR IN THE PROMPT BEFORE EXECUTING**
+```sh
+pip install ./Languages/Python/
+```
+
+Now the Python solutions can use the fshandler to provide the result.
+
+## General instructions (default)
 
 ### Input file
 
