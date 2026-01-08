@@ -1,13 +1,7 @@
 import sys
 
 
-depth = int(sys.argv[2])
-
-# Dynamically find the folder where common Python scripts resides.
-# This avoids re-writing them for each solution!
-sys.path.append('../' * depth)
-from Languages.Python import read_file, FileExtensions, get_logger
-
+from fshandler import read_file, FileExtensions, get_logger
 
 input2_logger = get_logger(__name__)
 

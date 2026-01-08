@@ -1,13 +1,18 @@
 # built-in modules
 from pathlib import Path
 import logging
+from logging import Logger
 from enum import Enum
 
 
 # Default logging configuration
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-day1_logger = logging.getLogger(__name__)
 
+
+def get_logger(name) -> Logger:
+	return logging.getLogger(name)
+
+day1_logger = get_logger(__name__)
 
 # region Enums
 class FileExtensions(Enum):

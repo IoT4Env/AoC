@@ -1,27 +1,28 @@
 import sys
 
+from fshandler import read_file, FileExtensions, get_logger
 
-depth = int(sys.argv[2])
-
-# Dynamically find the folder where common Python scripts resides.
-# This avoids re-writing them for each solution!
-sys.path.append('../' * depth)
-from Languages.Python import read_file, FileExtensions
+input1_logger = get_logger(__name__)
 
 def solve_part2(input1: str) -> int:
-	input1_lines: list[str] = read_file(input1, FileExtensions.TXT)
+	try:
+		input1_lines: list[str] = read_file(input1, FileExtensions.TXT)
 
-	current_floor: int = 0
-	
-	# For "one-line" input files
-	if len(input1_lines) == 1:
-		innput_single = input1_lines[0]
-		for i, c in enumerate(innput_single, 1):
-			current_floor += 1 if c == '(' else -1
-			if current_floor == -1:
-				return i
-	
-	raise Exception("Provided input does not bring you to the basement at any point!")
+		current_floor: int = 0
+		
+		# For "one-line" input files
+		if len(input1_lines) == 1:
+			innput_single = input1_lines[0]
+			for i, c in enumerate(innput_single, 1):
+				current_floor += 1 if c == '(' else -1
+				if current_floor == -1:
+					return i
+		
+		raise Exception("Provided input does not bring you to the basement at any point!")
+
+	except Exception as error:
+		input1_logger.error(error)
+		return 0
 
 
 def main() -> None:
